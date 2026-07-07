@@ -101,23 +101,79 @@
     </div>
   </section>
 
-  <!-- ===== ОТЗЫВЫ ===== -->
+  <!-- ===== ОТЗЫВЫ (КАРУСЕЛЬ) ===== -->
   <section id="reviews" class="reviews">
     <h2>Отзывы</h2>
-    <div class="cards">
-      <div class="card">
-        <p>«Занимаюсь уже полгода, чувствую себя гораздо увереннее». (пример отзыва)</p>
-        <span>— Екатерина, 34 года</span>
+
+    <div class="reviews-carousel">
+      <button class="carousel-arrow carousel-arrow-left" type="button" aria-label="Предыдущие отзывы">&#8592;</button>
+
+      <div class="reviews-track">
+        <div class="cards reviews-cards">
+
+          <div class="card review-card">
+            <div class="stars" aria-label="Оценка 5 из 5">★★★★★</div>
+            <p>«Занимаюсь уже полгода, чувствую себя гораздо увереннее».</p>
+            <span class="review-name">— Екатерина, 34 года</span>
+            <span class="review-demo-tag">Пример отзыва для демонстрационного сайта</span>
+          </div>
+
+          <div class="card review-card">
+            <div class="stars" aria-label="Оценка 5 из 5">★★★★★</div>
+            <p>«Отличный подход к восстановлению после тренировок».</p>
+            <span class="review-name">— Дмитрий, 41 год</span>
+            <span class="review-demo-tag">Пример отзыва для демонстрационного сайта</span>
+          </div>
+
+          <div class="card review-card">
+            <div class="stars" aria-label="Оценка 4 из 5">★★★★☆</div>
+            <p>«Тренер помог мне разобраться с осанкой, очень довольна».</p>
+            <span class="review-name">— Ольга, 29 лет</span>
+            <span class="review-demo-tag">Пример отзыва для демонстрационного сайта</span>
+          </div>
+
+          <div class="card review-card">
+            <div class="stars" aria-label="Оценка 5 из 5">★★★★★</div>
+            <p>«Комфортная атмосфера, никакой спешки, всё по силам».</p>
+            <span class="review-name">— Сергей, 38 лет</span>
+            <span class="review-demo-tag">Пример отзыва для демонстрационного сайта</span>
+          </div>
+
+          <div class="card review-card">
+            <div class="stars" aria-label="Оценка 4 из 5">★★★★☆</div>
+            <p>«Понравился индивидуальный подход к программе занятий».</p>
+            <span class="review-name">— Наталья, 45 лет</span>
+            <span class="review-demo-tag">Пример отзыва для демонстрационного сайта</span>
+          </div>
+
+          <div class="card review-card">
+            <div class="stars" aria-label="Оценка 5 из 5">★★★★★</div>
+            <p>«Групповые занятия — отличная поддержка и мотивация».</p>
+            <span class="review-name">— Артём, 27 лет</span>
+            <span class="review-demo-tag">Пример отзыва для демонстрационного сайта</span>
+          </div>
+
+          <div class="card review-card">
+            <div class="stars" aria-label="Оценка 5 из 5">★★★★★</div>
+            <p>«Тренер учитывает мой уровень подготовки, всё по плану».</p>
+            <span class="review-name">— Ирина, 31 год</span>
+            <span class="review-demo-tag">Пример отзыва для демонстрационного сайта</span>
+          </div>
+
+          <div class="card review-card">
+            <div class="stars" aria-label="Оценка 4 из 5">★★★★☆</div>
+            <p>«Современное оборудование и приятная атмосфера студии».</p>
+            <span class="review-name">— Павел, 36 лет</span>
+            <span class="review-demo-tag">Пример отзыва для демонстрационного сайта</span>
+          </div>
+
+        </div>
       </div>
-      <div class="card">
-        <p>«Отличный подход к восстановлению после тренировок». (пример отзыва)</p>
-        <span>— Дмитрий, 41 год</span>
-      </div>
-      <div class="card">
-        <p>«Тренер помог мне разобраться с осанкой, очень довольна». (пример отзыва)</p>
-        <span>— Ольга, 29 лет</span>
-      </div>
+
+      <button class="carousel-arrow carousel-arrow-right" type="button" aria-label="Следующие отзывы">&#8594;</button>
     </div>
+
+    <p class="reviews-note">Отзывы приведены как демонстрационные примеры</p>
   </section>
 
   <!-- ===== ЧАСТЫЕ ВОПРОСЫ (FAQ) ===== -->
@@ -165,8 +221,9 @@
       <a href="https://wa.me/79991234567" target="_blank">WhatsApp</a>
     </div>
 
-<p class="copyright">&copy; 2026 Balance Motion. Демонстрационный сайт.</p>
-<p class="disclaimer">Демонстрационный проект. Все контакты и данные приведены для примера.</p>  </footer>
+    <p class="copyright">&copy; 2026 Balance Motion. Демонстрационный сайт.</p>
+    <p class="disclaimer">Демонстрационный проект. Все контакты и данные приведены для примера.</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
