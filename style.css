@@ -200,7 +200,6 @@ section, footer {
   font-size: 1.1rem;
 }
 
-/* Фирменный элемент: волна-разделитель, символ баланса и движения */
 .hero::after {
   content: "";
   position: absolute;
@@ -288,28 +287,113 @@ section, footer {
   box-shadow: var(--shadow);
 }
 
-/* ===== ОТЗЫВЫ ===== */
+/* ===========================================
+   ОТЗЫВЫ — КАРУСЕЛЬ
+   =========================================== */
 
 .reviews {
   background: var(--bg);
 }
 
-.reviews .card {
+.reviews-carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.reviews-track {
+  flex: 1 1 auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  max-width: 100%;
+}
+
+.reviews-track::-webkit-scrollbar {
+  display: none;
+}
+
+.reviews-cards {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1.8rem;
+  max-width: none;
+  margin: 0;
+}
+
+.review-card {
+  flex: 0 0 calc((100% - 2 * 1.8rem) / 3);
+  scroll-snap-align: start;
   text-align: left;
   position: relative;
 }
 
-.reviews .card p {
+.review-card .stars {
+  color: var(--accent);
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+  letter-spacing: 2px;
+}
+
+.review-card p {
   color: var(--text);
   font-style: italic;
   margin-bottom: 1rem;
 }
 
-.reviews .card span {
+.review-name {
   display: block;
   font-size: 0.85rem;
-  color: var(--accent);
+  color: var(--primary-dark);
   font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.review-demo-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+}
+
+.carousel-arrow {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--primary-dark);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow);
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.carousel-arrow:hover {
+  background: var(--primary);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+}
+
+.reviews-note {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 1.8rem;
 }
 
 /* ===== FAQ ===== */
@@ -504,6 +588,16 @@ section, footer {
     max-width: 300px;
     margin: 0 auto;
   }
+
+  .review-card {
+    flex-basis: calc((100% - 1.8rem) / 2);
+  }
+
+  .carousel-arrow {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
+  }
 }
 
 /* ===========================================
@@ -553,6 +647,20 @@ section, footer {
     grid-column: auto;
     max-width: 100%;
     margin: 0;
+  }
+
+  .reviews-carousel {
+    gap: 0.6rem;
+  }
+
+  .review-card {
+    flex-basis: 100%;
+  }
+
+  .carousel-arrow {
+    width: 34px;
+    height: 34px;
+    font-size: 0.9rem;
   }
 
   .request-form form {
