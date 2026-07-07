@@ -119,19 +119,25 @@ document.addEventListener('DOMContentLoaded', function () {
       '(prefers-reduced-motion: reduce)'
     ).matches;
 
-    // Определяем ширину "шага" прокрутки: ширина одной карточки + отступ
+    let isHovering = false;
+
+    // Ширина "шага" прокрутки: ширина одной карточки + отступ
     function getStep() {
       const firstCard = track.querySelector('.review-card');
       if (!firstCard) return track.clientWidth;
 
-      const cardStyle = window.getComputedStyle(firstCard.parentElement);
-      const gap = parseFloat(cardStyle.columnGap || cardStyle.gap || '0') || 0;
+      const cardsWrapper = firstCard.parentElement;
+      const wrapperStyle = window.getComputedStyle(cardsWrapper);
+      const gap = parseFloat(wrapperStyle.columnGap || wrapperStyle.gap || '0') || 0;
 
       return firstCard.getBoundingClientRect().width + gap;
     }
 
+    function isAtStart() {
+      return track.scrollLeft <= 2; // запас на погрешности округления
+    }
+
     function isAtEnd() {
-      // небольшой запас в 2px на погрешности округления
       return track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
     }
 
@@ -145,18 +151,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function scrollPrev() {
-      track.scrollBy({ left: -getStep(), behavior: 'smooth' });
+      if (isAtStart()) {
+        // плавный переход к последней группе отзывов
+        track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' });
+      } else {
+        track.scrollBy({ left: -getStep(), behavior: 'smooth' });
+      }
     }
-
-    arrowRight.addEventListener('click', function () {
-      scrollNext();
-      registerInteraction();
-    });
-
-    arrowLeft.addEventListener('click', function () {
-      scrollPrev();
-      registerInteraction();
-    });
 
     /* ---------- Автопрокрутка ---------- */
 
@@ -171,7 +172,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function startAutoplay() {
-      if (prefersReducedMotion) return; // не запускаем при reduced motion
+      if (prefersReducedMotion) return;
+      if (isHovering) return; // не запускаем, если курсор наведён
       stopAutoplay();
       autoplayInterval = setInterval(scrollNext, 5000);
     }
@@ -185,26 +187,42 @@ document.addEventListener('DOMContentLoaded', function () {
       idleTimer = setTimeout(startAutoplay, 10000);
     }
 
+    // Единая точка входа для любого РУЧНОГО действия пользователя
     function registerInteraction() {
-      // Любое ручное действие — сбрасываем и перезапускаем отсчёт бездействия
       resetIdleTimer();
     }
 
-    if (!prefersReducedMotion) {
-      // Клик по стрелкам уже вызывает registerInteraction() выше
+    arrowRight.addEventListener('click', function () {
+      scrollNext();
+      registerInteraction();
+    });
 
-      // Свайп / ручная прокрутка колесом или пальцем
-      track.addEventListener('scroll', registerInteraction);
+    arrowLeft.addEventListener('click', function () {
+      scrollPrev();
+      registerInteraction();
+    });
+
+    if (!prefersReducedMotion) {
+      // Свайп пальцем
       track.addEventListener('touchstart', registerInteraction, { passive: true });
 
-      // Наведение курсора — держим автопрокрутку остановленной, пока курсор внутри
+      // Нажатие / начало перетаскивания мышью
+      track.addEventListener('mousedown', registerInteraction);
+      track.addEventListener('pointerdown', registerInteraction);
+
+      // Прокрутка колесом мыши
+      track.addEventListener('wheel', registerInteraction, { passive: true });
+
+      // Наведение курсора — приостанавливаем, пока курсор внутри
       track.addEventListener('mouseenter', function () {
+        isHovering = true;
         if (idleTimer) clearTimeout(idleTimer);
         stopAutoplay();
       });
 
       track.addEventListener('mouseleave', function () {
-        resetIdleTimer();
+        isHovering = false;
+        registerInteraction();
       });
 
       // Запускаем первый отсчёт бездействия при загрузке страницы
